@@ -8,7 +8,7 @@ Usage
 
 `wf [options]`
 
-Reads stdin as a string, processes the word count, and outputs newline delimited rows containing first the word, then the number of times it appears.
+Reads stdin and outputs newline delimited rows containing each unique word and the number of times it appears, seperated by a space.
 
 Options:
 ```
