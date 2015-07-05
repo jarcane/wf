@@ -2,8 +2,3 @@
 name = "wf"
 version = "0.1.0"
 authors = ["jarcane <jarcane@users.noreply.github.com>"]
-
-[dependencies]
-
-itertools = "0.3.21"
-getopts = "0.2"
