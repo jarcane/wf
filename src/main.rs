@@ -4,12 +4,22 @@
 // See agpl-3.0.txt for more information.
 
 extern crate itertools;
+//extern crate getopts;
 
 mod freq;
 
 use freq::{get_freqs, Sorted};
+use std::io::prelude::*;
+use std::io;
+//use getopts::Options;
+//use std::env;
 
 fn main() {
-    let sample = "Dave is fat. \n Dave sucks. \n My name is Dave. 42.".to_string();
-    print!("{}", get_freqs(sample, false, Sorted::Alpha));
+    let mut input = io::stdin();
+    let mut instr = String::new();
+
+    match input.read_to_string(&mut instr) {
+        Ok(s)  => print!("{}", get_freqs(instr, false, Sorted::Alpha)),
+        Err(e) => panic!("{:?}", e)
+    }
 }
