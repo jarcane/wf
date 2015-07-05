@@ -7,8 +7,6 @@ extern crate itertools;
 
 mod freq;
 
-use std::collections::HashMap;
-use itertools::Itertools;
 use freq::{get_freqs, Sorted};
 
 fn main() {
