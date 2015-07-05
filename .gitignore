@@ -13,4 +13,4 @@
 # Emacs temp files
 *.rs#
 *.*~
-src/.#main.rs
+.#*

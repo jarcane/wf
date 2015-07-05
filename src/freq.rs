@@ -35,7 +35,7 @@ fn sort_by_freq(c: HashMap<String, u32>) -> String {
     c.iter()
         .sort_by(|a, b| Ord::cmp(&b.1, &a.1))
         .iter()
-        .map(|&(k, v)| format!("{} {}", v, k))
+        .map(|&(k, v)| format!("{} {}", k, v))
         .fold("".to_string(), |i, v| format!("{}{}\n", i, v))
 } 
 
