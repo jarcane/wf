@@ -17,3 +17,12 @@ Options:
 -f --freq           Sort output but most to least frequent (incompatible with -s)
 -h --help           Display usage information
 ```
+
+Installation
+------------
+
+To install the wf binary, you can now do the following with an up-to-date version of `cargo`:
+
+```
+cargo install wf
+```

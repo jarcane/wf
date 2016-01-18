@@ -1,7 +1,11 @@
 [package]
 name = "wf"
+description = "A Unix-style command-line utility for counting word frequencies"
 version = "0.1.0"
 authors = ["jarcane <jarcane@users.noreply.github.com>"]
+license = "AGPL-3.0"
+homepage = "https://github.com/jarcane/wf"
+repository = "https://github.com/jarcane/wf"
 
 [[bin]]
 name = "wf"
