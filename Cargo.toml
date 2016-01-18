@@ -3,6 +3,9 @@ name = "wf"
 version = "0.1.0"
 authors = ["jarcane <jarcane@users.noreply.github.com>"]
 
+[[bin]]
+name = "wf"
+
 [dependencies]
 
 itertools = "0.3.21"
