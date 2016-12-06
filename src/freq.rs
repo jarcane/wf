@@ -15,7 +15,7 @@ fn word_freq<F>(s: String, sf: F) -> HashMap<String, u32>
 
         s.split(sf)
             .filter( |s| !s.is_empty() )
-            .map(|s| { s.chars().flat_map(char::to_lowercase).collect::<String>() })
+            .map(|s| { s.to_lowercase() })
             .fold(HashMap::new(), |mut m, i| {
                 *m.entry(i).or_insert(0u32) += 1;
                 m
@@ -33,7 +33,7 @@ fn word_freq_no_nums(s: String) -> HashMap<String, u32> {
 // Preparing for output
 fn sort_by_freq(c: HashMap<String, u32>) -> String {
     c.iter()
-        .sort_by(|a, b| Ord::cmp(&b.1, &a.1))
+        .sorted_by(|a, b| Ord::cmp(&b.1, &a.1))
         .iter()
         .map(|&(k, v)| format!("{} {}", k, v))
         .fold("".to_string(), |i, v| format!("{}{}\n", i, v))
