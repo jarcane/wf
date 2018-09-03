@@ -1,5 +1,6 @@
 // Frequency analyzer
 
+use std::io::{Lines, StdinLock};
 use std::collections::HashMap;
 use itertools::Itertools;
 
@@ -10,23 +11,29 @@ pub enum Sorted {
 }
 
 // The frequency counters
-fn word_freq<F>(s: String, sf: F) -> HashMap<String, u32>
+fn word_freq<F>(lines: Lines<StdinLock>, sf: F) -> HashMap<String, u32>
     where F : Fn(char) -> bool {
 
-        s.split(sf)
-            .filter( |s| !s.is_empty() )
-            .map(|s| { s.to_lowercase() })
-            .fold(HashMap::new(), |mut m, i| {
-                *m.entry(i).or_insert(0u32) += 1;
-                m
-            })
+    let mut dictionary = HashMap::new();
+
+    for line in lines {
+        match line {
+            Ok(l) => l.split(&sf)
+                        .filter( |s| !s.is_empty() )
+                        .map(|s| { s.to_lowercase() })
+                        .for_each(|s| *dictionary.entry(s).or_insert(0u32) += 1 ),
+            Err(e) => panic!("{:?}", e)
+        }
     }
 
-fn word_freq_nums(s: String) -> HashMap<String, u32> {
+    dictionary
+}
+
+fn word_freq_nums(s: Lines<StdinLock>) -> HashMap<String, u32> {
     word_freq(s, |c: char| !c.is_alphanumeric())
 }
 
-fn word_freq_no_nums(s: String) -> HashMap<String, u32> {
+fn word_freq_no_nums(s: Lines<StdinLock>) -> HashMap<String, u32> {
     word_freq(s, |c: char| !c.is_alphabetic())
 }
 
@@ -50,7 +57,7 @@ fn no_sort(c: HashMap<String, u32>) -> String {
 }
 
 // The main dispatch function
-pub fn get_freqs(s: String, nums: bool, sort: Sorted) -> String {
+pub fn get_freqs(s: Lines<StdinLock>, nums: bool, sort: Sorted) -> String {
     let count = match nums {
         true  => word_freq_nums(s),
         false => word_freq_no_nums(s),

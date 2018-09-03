@@ -57,11 +57,9 @@ fn main() {
     };
     
     // Grabbing stdin
-    let mut input = io::stdin();
-    let mut instr = String::new();
-
-    match input.read_to_string(&mut instr) {
-        Ok(_)  => print!("{}", get_freqs(instr, nums, sort)),
-        Err(e) => panic!("{:?}", e)
-    }
+    let input = io::stdin();
+    let lines = input.lock().lines();
+    let result = get_freqs(lines, nums, sort);
+    
+    print!("{}", result);
 }
