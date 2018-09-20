@@ -58,7 +58,6 @@ fn main() {
     // Grabbing stdin
     let input = io::stdin();
     let mut lines = input.lock();
-    let result = get_freqs(&mut lines, nums, sort);
     
-    print!("{}", result);
+    get_freqs(&mut lines, nums, sort);
 }
