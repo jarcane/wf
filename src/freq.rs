@@ -11,7 +11,7 @@ pub enum Sorted {
 }
 
 // The frequency counters
-fn word_freq<F>(lines: &mut StdinLock, sf: F) -> HashMap<String, u32>
+fn word_freq<F>(lines: &mut StdinLock, sf: F) -> HashMap<String, usize>
 where
     F: Fn(char) -> bool,
 {
@@ -22,23 +22,23 @@ where
         line.split(&sf)
             .filter(|s| !s.is_empty())
             .map(|s| s.to_string())
-            .for_each(|s| *dictionary.entry(s).or_insert(0u32) += 1);
+            .for_each(|s| *dictionary.entry(s).or_insert(0usize) += 1);
         line.clear();
     }
 
     dictionary
 }
 
-fn word_freq_nums(s: &mut StdinLock) -> HashMap<String, u32> {
+fn word_freq_nums(s: &mut StdinLock) -> HashMap<String, usize> {
     word_freq(s, |c: char| !c.is_alphanumeric())
 }
 
-fn word_freq_no_nums(s: &mut StdinLock) -> HashMap<String, u32> {
+fn word_freq_no_nums(s: &mut StdinLock) -> HashMap<String, usize> {
     word_freq(s, |c: char| !c.is_alphabetic())
 }
 
 // Preparing for output
-fn sort_by_freq(c: HashMap<String, u32>) -> () {
+fn sort_by_freq(c: HashMap<String, usize>) -> () {
     let counts = c
         .iter()
         .sorted_by(|a, b| Ord::cmp(&b.1, &a.1));
@@ -48,7 +48,7 @@ fn sort_by_freq(c: HashMap<String, u32>) -> () {
     }
 }
 
-fn sort_by_alpha(c: HashMap<String, u32>) -> () {
+fn sort_by_alpha(c: HashMap<String, usize>) -> () {
     let mut arr: Vec<String> = c.iter().map(|(k, v)| format!("{} {}", k, v)).collect();
     arr.sort();
     
@@ -57,7 +57,7 @@ fn sort_by_alpha(c: HashMap<String, u32>) -> () {
     }
 }
 
-fn no_sort(c: HashMap<String, u32>) -> () {
+fn no_sort(c: HashMap<String, usize>) -> () {
     for (k, v) in c {
         println!("{} {}", k, v);
     }
