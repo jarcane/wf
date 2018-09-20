@@ -9,7 +9,6 @@ extern crate getopts;
 mod freq;
 
 use freq::{get_freqs, Sorted};
-use std::io::prelude::*;
 use std::io;
 use getopts::Options;
 use std::env;
@@ -58,8 +57,8 @@ fn main() {
     
     // Grabbing stdin
     let input = io::stdin();
-    let lines = input.lock().lines();
-    let result = get_freqs(lines, nums, sort);
+    let mut lines = input.lock();
+    let result = get_freqs(&mut lines, nums, sort);
     
     print!("{}", result);
 }
