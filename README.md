@@ -1,7 +1,7 @@
 wf
 ==
 
-[![Crates.io](https://img.shields.io/crates/v/wf.svg)](https://github.com/jarcane/wf)
+[![Crates.io](https://img.shields.io/crates/v/wf.svg)](https://crates.io/crates/wf)
 
 
 A Unix-style command line utility for counting word frequencies.
