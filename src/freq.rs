@@ -11,15 +11,6 @@ pub enum Sorted {
     Freq,
 }
 
-/// A safe wrapper for printing a string line to the stdout
-/// Ensures that instead of crashing if the downpipe ends prematurely,
-/// wf will safely exit early instead.
-fn safe_print(s: String) {
-    if let Err(_) = try_println!("{}", s) {
-        exit(0);
-    }
-}
-
 // The frequency counters
 fn word_freq<F>(lines: &mut StdinLock, sf: F) -> HashMap<String, usize>
 where
@@ -54,7 +45,9 @@ fn sort_by_freq(c: HashMap<String, usize>) -> () {
         .sorted_by(|a, b| Ord::cmp(&b.1, &a.1));
 
     for (k, v) in counts {
-        safe_print(format!("{} {}", k, v))
+        if let Err(_) = try_println!("{} {}", k, v) {
+            exit(0);
+        }
     }
 }
 
@@ -63,13 +56,17 @@ fn sort_by_alpha(c: HashMap<String, usize>) -> () {
     arr.sort();
     
     for i in arr {
-        safe_print(format!("{}", i))
+        if let Err(_) = try_println!("{}", i) {
+            exit(0);
+        }
     }
 }
 
 fn no_sort(c: HashMap<String, usize>) -> () {
     for (k, v) in c {
-        safe_print(format!("{} {}", k, v))
+        if let Err(_) = try_println!("{} {}", k, v) {
+            exit(0);
+        }
     }
 }
 
