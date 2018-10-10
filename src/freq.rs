@@ -2,12 +2,22 @@
 
 use itertools::Itertools;
 use std::collections::HashMap;
+use std::process::exit;
 use std::io::{BufRead, StdinLock};
 
 pub enum Sorted {
     No,
     Alpha,
     Freq,
+}
+
+/// A safe wrapper for printing a string line to the stdout
+/// Ensures that instead of crashing if the downpipe ends prematurely,
+/// wf will safely exit early instead.
+fn safe_print(s: String) {
+    if let Err(_) = try_println!("{}", s) {
+        exit(0);
+    }
 }
 
 // The frequency counters
@@ -44,7 +54,7 @@ fn sort_by_freq(c: HashMap<String, usize>) -> () {
         .sorted_by(|a, b| Ord::cmp(&b.1, &a.1));
 
     for (k, v) in counts {
-        println!("{} {}", k, v)
+        safe_print(format!("{} {}", k, v))
     }
 }
 
@@ -53,13 +63,13 @@ fn sort_by_alpha(c: HashMap<String, usize>) -> () {
     arr.sort();
     
     for i in arr {
-        println!("{}", i)
+        safe_print(format!("{}", i))
     }
 }
 
 fn no_sort(c: HashMap<String, usize>) -> () {
     for (k, v) in c {
-        println!("{} {}", k, v);
+        safe_print(format!("{} {}", k, v))
     }
 }
 
