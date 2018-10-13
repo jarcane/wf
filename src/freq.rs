@@ -2,7 +2,9 @@
 
 use itertools::Itertools;
 use std::collections::HashMap;
-use std::io::{BufRead, StdinLock};
+use std::process::exit;
+use std::io;
+use std::io::{BufRead, StdinLock, Stdout, Write};
 
 pub enum Sorted {
     No,
@@ -38,28 +40,34 @@ fn word_freq_no_nums(s: &mut StdinLock) -> HashMap<String, usize> {
 }
 
 // Preparing for output
-fn sort_by_freq(c: HashMap<String, usize>) -> () {
+fn sort_by_freq(s: &mut Stdout, c: HashMap<String, usize>) -> () {
     let counts = c
         .iter()
         .sorted_by(|a, b| Ord::cmp(&b.1, &a.1));
 
     for (k, v) in counts {
-        println!("{} {}", k, v)
+        if let Err(_) = writeln!(s, "{} {}", k, v) {
+            exit(0);
+        }
     }
 }
 
-fn sort_by_alpha(c: HashMap<String, usize>) -> () {
+fn sort_by_alpha(s: &mut Stdout, c: HashMap<String, usize>) -> () {
     let mut arr: Vec<String> = c.iter().map(|(k, v)| format!("{} {}", k, v)).collect();
     arr.sort();
     
     for i in arr {
-        println!("{}", i)
+        if let Err(_) = writeln!(s, "{}", i) {
+            exit(0);
+        }
     }
 }
 
-fn no_sort(c: HashMap<String, usize>) -> () {
+fn no_sort(s: &mut Stdout, c: HashMap<String, usize>) -> () {
     for (k, v) in c {
-        println!("{} {}", k, v);
+        if let Err(_) = writeln!(s, "{} {}", k, v) {
+            exit(0);
+        }
     }
 }
 
@@ -69,9 +77,15 @@ pub fn get_freqs(s: &mut StdinLock, nums: bool, sort: Sorted) -> () {
         true => word_freq_nums(s),
         false => word_freq_no_nums(s),
     };
+    let mut stdout = io::stdout();
+
     match sort {
-        Sorted::No => no_sort(count),
-        Sorted::Alpha => sort_by_alpha(count),
-        Sorted::Freq => sort_by_freq(count),
+        Sorted::No => no_sort(&mut stdout, count),
+        Sorted::Alpha => sort_by_alpha(&mut stdout, count),
+        Sorted::Freq => sort_by_freq(&mut stdout, count),
+    }
+
+    if let Err(_) = stdout.flush() {
+        exit(0);
     }
 }
