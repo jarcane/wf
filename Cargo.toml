@@ -14,4 +14,3 @@ name = "wf"
 
 itertools = "0.5.4"
 getopts = "0.2"
-try_print = "0.0.1"

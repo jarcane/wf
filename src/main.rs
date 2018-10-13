@@ -6,9 +6,6 @@
 extern crate itertools;
 extern crate getopts;
 
-#[macro_use]
-extern crate try_print;
-
 mod freq;
 
 use freq::{get_freqs, Sorted};
