@@ -33,4 +33,10 @@ cargo install wf
 Development
 -----------
 
-This project uses `clippy`.
+This project uses `clippy`, and Travis CI will check all PRs and branches against it. It is advisable then to install this and check locally before submitting a PR.
+
+License
+-------
+
+Copyright 2018 by Annaia Berry
+This project is licensed with the Affero GPL v3. See `LICENSE` for full details.
