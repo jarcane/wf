@@ -7,7 +7,7 @@ matrix:
   allow_failures:
     - rust: nightly
   fast_finish: true
-cache: true
+cache: cargo
 before_script:
   - rustup component add clippy-preview
 script:
