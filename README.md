@@ -29,3 +29,8 @@ To install the wf binary, you can now do the following with an up-to-date versio
 ```
 cargo install wf
 ```
+
+Development
+-----------
+
+This project uses `clippy`.
