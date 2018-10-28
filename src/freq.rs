@@ -40,7 +40,7 @@ fn word_freq_no_nums(s: &mut StdinLock) -> HashMap<String, usize> {
 }
 
 // Preparing for output
-fn sort_by_freq(s: &mut Stdout, c: &HashMap<String, usize>) -> () {
+fn sort_by_freq(s: &mut Stdout, c: &HashMap<String, usize>) {
     let counts = c
         .iter()
         .sorted_by(|a, b| Ord::cmp(&b.1, &a.1));
@@ -52,7 +52,7 @@ fn sort_by_freq(s: &mut Stdout, c: &HashMap<String, usize>) -> () {
     }
 }
 
-fn sort_by_alpha(s: &mut Stdout, c: &HashMap<String, usize>) -> () {
+fn sort_by_alpha(s: &mut Stdout, c: &HashMap<String, usize>) {
     let mut arr: Vec<String> = c.iter().map(|(k, v)| format!("{} {}", k, v)).collect();
     arr.sort();
     
@@ -63,7 +63,7 @@ fn sort_by_alpha(s: &mut Stdout, c: &HashMap<String, usize>) -> () {
     }
 }
 
-fn no_sort(s: &mut Stdout, c: HashMap<String, usize>) -> () {
+fn no_sort(s: &mut Stdout, c: HashMap<String, usize>) {
     for (k, v) in c {
         if writeln!(s, "{} {}", k, v).is_err() {
             exit(0);
@@ -72,7 +72,7 @@ fn no_sort(s: &mut Stdout, c: HashMap<String, usize>) -> () {
 }
 
 // The main dispatch function
-pub fn get_freqs(s: &mut StdinLock, nums: bool, sort: &Sorted) -> () {
+pub fn get_freqs(s: &mut StdinLock, nums: bool, sort: &Sorted) {
     let count = if nums { word_freq_nums(s) } else { word_freq_no_nums(s) };
     let mut stdout = io::stdout();
 
