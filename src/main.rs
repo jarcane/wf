@@ -13,7 +13,7 @@ use std::io;
 use getopts::Options;
 use std::env;
 
-fn print_usage(program: &str, opts: Options) {
+fn print_usage(program: &str, opts: &Options) {
     let brief = format!("{} - Counts word frequency from stdin\nUsage: wf [options]", program);
     print!("{}", opts.usage(&brief));
 }
@@ -38,7 +38,7 @@ fn main() {
 
     // Display usage on -h || --help
     if matches.opt_present("h") {
-        print_usage(&program, opts);
+        print_usage(&program, &opts);
         return;
     }
 
@@ -50,7 +50,7 @@ fn main() {
         (false, false) => Sorted::No,
         (_    , _    ) => {
             println!("Incompatible arguments");
-            print_usage(&program, opts);
+            print_usage(&program, &opts);
             return;
         },
     };
@@ -59,5 +59,5 @@ fn main() {
     let input = io::stdin();
     let mut lines = input.lock();
     
-    get_freqs(&mut lines, nums, sort);
+    get_freqs(&mut lines, nums, &sort);
 }
